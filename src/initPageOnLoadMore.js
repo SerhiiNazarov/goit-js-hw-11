@@ -1,4 +1,6 @@
 import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getImages } from './getImages';
 import { createMarkup } from './createMarkup';
 import { vars } from './vars';
@@ -31,6 +33,14 @@ export async function initPageOnLoadMore() {
     let lightbox = new SimpleLightbox('.gallery__link', {
       captionDelay: 250,
       captionsData: 'alt',
+    });
+
+    const { height: cardHeight } =
+      refs.galleryRef.firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: 'smooth',
     });
   } catch (error) {
     Notiflix.Notify.failure(error.message, 'Oops, something is wrong.', {
